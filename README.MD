@@ -35,8 +35,10 @@ Laravelで実践クリーンアーキテクチャ: https://qiita.com/nrslib/item
 - packages\Domain\Domain 以下
 
 ### Presenters
-MVC フレームワークにおいては相性が悪いので採用していません。  
-ただ Laravel では再現できる方法があるという情報を聞いているので調査後実装予定です。
+- App\Http\Presenters\User\UserCreatePresenter
+- App\Http\Presenters\User\UserGetListPresenter
+- packages\UseCase\User\Create\UserCreatePresenterInterface
+- packages\UseCase\User\GetList\UserGetListPresenterInterface
 
 ### Gateways
 - packages\Domain\Domain\User\UserRepositoryInterface
@@ -68,12 +70,12 @@ Interface と Adapter です。
 - packages\MockInteractor\User\MockUserGetInteractor
 
 ### UseCaseOutputPort
-MVC フレームワークにおいては相性が悪いので採用していません。  
-ただ Laravel では再現できる方法があるという情報を聞いているので調査後実装予定です。
+- packages\UseCase\User\Create\UserCreatePresenterInterface
+- packages\UseCase\User\GetList\UserGetListPresenterInterface
 
 ### Presenter
-MVC フレームワークにおいては相性が悪いので採用していません。  
-ただ Laravel では再現できる方法があるという情報を聞いているので調査後実装予定です。
+- App\Http\Presenters\User\UserCreatePresenter
+- App\Http\Presenters\User\UserGetListPresenter
 
 ## クラス図
 
@@ -109,12 +111,12 @@ MVC フレームワークにおいては相性が悪いので採用していま�
 - packages\UseCase\User\GetList\UserGetResponse
 
 ### OutputBoundary
-MVC フレームワークにおいては相性が悪いので採用していません。  
-ただ Laravel では再現できる方法があるという情報を聞いているので調査後実装予定です。
+- packages\UseCase\User\Create\UserCreatePresenterInterface
+- packages\UseCase\User\GetList\UserGetListPresenterInterface
 
 ### Presenter
-MVC フレームワークにおいては相性が悪いので採用していません。  
-ただ Laravel では再現できる方法があるという情報を聞いているので調査後実装予定です。
+- App\Http\Presenters\User\UserCreatePresenter
+- App\Http\Presenters\User\UserGetListPresenter
 
 ### ViewModel
 - App\Http\Models 以下
