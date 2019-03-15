@@ -51,10 +51,14 @@ $app = require_once __DIR__.'/../bootstrap/app.php';
 
 $kernel = $app->make(Illuminate\Contracts\Http\Kernel::class);
 
-$response = $kernel->handle(
+$kernelResponse = $kernel->handle(
     $request = Illuminate\Http\Request::capture()
 );
 
+$view = \App\Http\Middleware\CleanArchitectureMiddleware::$view;
+$response = $view !== null
+    ? new \Symfony\Component\HttpFoundation\Response($view)
+    : $kernelResponse;
 $response->send();
 
 $kernel->terminate($request, $response);

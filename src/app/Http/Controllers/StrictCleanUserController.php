@@ -1,15 +1,16 @@
 <?php
 
+
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Routing\Controller as BaseController;
-use packages\UseCase\User\Create\UserCreateUseCaseInterface;
-use packages\UseCase\User\Create\UserCreateRequest;
-use packages\UseCase\User\GetList\UserGetListUseCaseInterface;
-use packages\UseCase\User\GetList\UserGetListRequest;
 
-class UserController extends BaseController
+use http\Env\Request;
+use packages\UseCase\User\Create\UserCreateRequest;
+use packages\UseCase\User\Create\UserCreateUseCaseInterface;
+use packages\UseCase\User\GetList\UserGetListRequest;
+use packages\UseCase\User\GetList\UserGetListUseCaseInterface;
+
+class StrictCleanUserController
 {
     public function index(UserGetListUseCaseInterface $interactor)
     {

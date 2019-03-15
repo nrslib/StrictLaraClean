@@ -17,7 +17,6 @@ class InMemoryUserRepository implements UserRepositoryInterface
     public function save(User $user)
     {
         $this->db[$user->getId()->getValue()] = $user;
-        var_dump($this->db);
     }
 
     /**

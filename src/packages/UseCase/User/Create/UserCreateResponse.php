@@ -11,12 +11,19 @@ class UserCreateResponse
     private $createdUserId;
 
     /**
+     * @var string
+     */
+    private $userName;
+
+    /**
      * UserCreateResponse constructor.
      * @param string $createdUserId
+     * @param string $userName
      */
-    public function __construct(string $createdUserId)
+    public function __construct(string $createdUserId, string $userName)
     {
         $this->createdUserId = $createdUserId;
+        $this->userName = $userName;
     }
 
     /**
@@ -25,5 +32,13 @@ class UserCreateResponse
     public function getCreatedUserId(): string
     {
         return $this->createdUserId;
+    }
+
+    /**
+     * @return string
+     */
+    public function getUserName(): string
+    {
+        return $this->userName;
     }
 }

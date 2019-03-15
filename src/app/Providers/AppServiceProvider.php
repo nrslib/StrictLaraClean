@@ -2,7 +2,11 @@
 
 namespace App\Providers;
 
+use App\Http\Presenters\User\UserCreatePresenter;
+use App\Http\Presenters\User\UserGetListPresenter;
 use Illuminate\Support\ServiceProvider;
+use packages\UseCase\User\Create\UserCreatePresenterInterface;
+use packages\UseCase\User\GetList\UserGetListPresenterInterface;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -40,10 +44,18 @@ class AppServiceProvider extends ServiceProvider
             \packages\UseCase\User\GetList\UserGetListUseCaseInterface::class,
             \packages\Domain\Application\User\UserGetListInteractor::class
         );
+        $this->app->bind(
+            UserGetListPresenterInterface::class,
+            UserGetListPresenter::class
+        );
 
         $this->app->bind(
             \packages\UseCase\User\Create\UserCreateUseCaseInterface::class,
             \packages\Domain\Application\User\UserCreateInteractor::class
+        );
+        $this->app->bind(
+            UserCreatePresenterInterface::class,
+            UserCreatePresenter::class
         );
     }
 
@@ -52,10 +64,18 @@ class AppServiceProvider extends ServiceProvider
             \packages\UseCase\User\GetList\UserGetListUseCaseInterface::class,
             \packages\MockInteractor\User\MockUserGetInteractor::class
         );
+        $this->app->bind(
+            UserGetListPresenterInterface::class,
+            UserGetListPresenter::class
+        );
 
         $this->app->bind(
             \packages\UseCase\User\Create\UserCreateUseCaseInterface::class,
             \packages\MockInteractor\User\MockUserCreateInteractor::class
+        );
+        $this->app->bind(
+            UserCreatePresenterInterface::class,
+            UserCreatePresenter::class
         );
     }
 }

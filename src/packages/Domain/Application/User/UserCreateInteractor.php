@@ -2,6 +2,7 @@
 
 namespace packages\Domain\Application\User;
 
+use App\Http\Presenters\User\UserCreatePresenter;
 use packages\Domain\Domain\User\UserRepositoryInterface;
 use packages\Domain\Domain\User\User;
 use packages\Domain\Domain\User\UserId;
@@ -15,26 +16,34 @@ class UserCreateInteractor implements UserCreateUseCaseInterface
      * @var UserRepositoryInterface
      */
     private $userRepository;
+    /**
+     * @var UserCreatePresenter
+     */
+    private $presenter;
 
     /**
      * UserCreateInteractor constructor.
      * @param UserRepositoryInterface $userRepository
+     * @param UserCreatePresenter $presenter
      */
-    public function __construct(UserRepositoryInterface $userRepository)
+    public function __construct(UserRepositoryInterface $userRepository, UserCreatePresenter $presenter)
     {
         $this->userRepository = $userRepository;
+        $this->presenter = $presenter;
     }
 
     /**
      * @param UserCreateRequest $request
-     * @return UserCreateResponse
+     * @return void
      */
     public function handle(UserCreateRequest $request)
     {
         $userId = new UserId(uniqid());
-        $createdUser = new User($userId, $request->getName());
+        $userName = $request->getName();
+        $createdUser = new User($userId, $userName);
         $this->userRepository->save($createdUser);
 
-        return new UserCreateResponse($userId->getValue());
+        $response = new UserCreateResponse($userId->getValue(), $userName);
+        $this->presenter->output($response);
     }
 }

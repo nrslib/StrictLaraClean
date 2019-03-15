@@ -3,6 +3,7 @@
 namespace packages\Domain\Application\User;
 
 use packages\Domain\Domain\User\UserRepositoryInterface;
+use packages\UseCase\User\GetList\UserGetListPresenterInterface;
 use packages\UseCase\User\GetList\UserGetListUseCaseInterface;
 use packages\UseCase\User\GetList\UserGetListRequest;
 use packages\UseCase\User\GetList\UserGetListResponse;
@@ -14,19 +15,25 @@ class UserGetListInteractor implements UserGetListUseCaseInterface
      * @var UserRepositoryInterface
      */
     private $userRepository;
+    /**
+     * @var UserGetListPresenterInterface
+     */
+    private $userGetListPresenter;
 
     /**
      * UserCreateInteractor constructor.
      * @param UserRepositoryInterface $userRepository
+     * @param UserGetListPresenterInterface $userGetListPresenter
      */
-    public function __construct(UserRepositoryInterface $userRepository)
+    public function __construct(UserRepositoryInterface $userRepository, UserGetListPresenterInterface $userGetListPresenter)
     {
         $this->userRepository = $userRepository;
+        $this->userGetListPresenter = $userGetListPresenter;
     }
 
     /**
      * @param UserGetListRequest $request
-     * @return UserGetListResponse
+     * @return void
      */
     public function handle(UserGetListRequest $request)
     {
@@ -38,6 +45,8 @@ class UserGetListInteractor implements UserGetListUseCaseInterface
             },
             $users
         );
-        return new UserGetListResponse($userModels);
+
+        $outputData = new UserGetListResponse($userModels);
+        $this->userGetListPresenter->output($outputData);
     }
 }
