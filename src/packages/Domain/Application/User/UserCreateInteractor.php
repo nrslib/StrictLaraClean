@@ -6,6 +6,7 @@ use App\Http\Presenters\User\UserCreatePresenter;
 use packages\Domain\Domain\User\UserRepositoryInterface;
 use packages\Domain\Domain\User\User;
 use packages\Domain\Domain\User\UserId;
+use packages\UseCase\User\Create\UserCreatePresenterInterface;
 use packages\UseCase\User\Create\UserCreateUseCaseInterface;
 use packages\UseCase\User\Create\UserCreateRequest;
 use packages\UseCase\User\Create\UserCreateResponse;
@@ -24,9 +25,9 @@ class UserCreateInteractor implements UserCreateUseCaseInterface
     /**
      * UserCreateInteractor constructor.
      * @param UserRepositoryInterface $userRepository
-     * @param UserCreatePresenter $presenter
+     * @param UserCreatePresenterInterface $presenter
      */
-    public function __construct(UserRepositoryInterface $userRepository, UserCreatePresenter $presenter)
+    public function __construct(UserRepositoryInterface $userRepository, UserCreatePresenterInterface $presenter)
     {
         $this->userRepository = $userRepository;
         $this->presenter = $presenter;
