@@ -13,6 +13,20 @@ use packages\UseCase\User\GetList\UserGetListResponse;
 class UserGetListPresenter implements UserGetListPresenterInterface
 {
     /**
+     * @var CleanArchitectureMiddleware
+     */
+    private $middleware;
+
+    /**
+     * UserGetListPresenter constructor.
+     * @param CleanArchitectureMiddleware $middleware
+     */
+    public function __construct(CleanArchitectureMiddleware $middleware)
+    {
+        $this->middleware = $middleware;
+    }
+
+    /**
      * @param UserGetListResponse $outputData
      * @return mixed
      */
@@ -25,6 +39,7 @@ class UserGetListPresenter implements UserGetListPresenterInterface
             $outputData->users
         );
         $viewModel = new UserIndexViewModel($users);
-        CleanArchitectureMiddleware::$view = view('user.index', compact('viewModel'));
+
+        $this->middleware->setData(view('user.index', compact('viewModel')));
     }
 }

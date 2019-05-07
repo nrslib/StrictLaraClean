@@ -11,9 +11,23 @@ use packages\UseCase\User\Create\UserCreateResponse;
 
 class UserCreatePresenter implements UserCreatePresenterInterface
 {
+    /**
+     * @var CleanArchitectureMiddleware
+     */
+    private $middleware;
+
+    /**
+     * UserCreatePresenter constructor.
+     * @param CleanArchitectureMiddleware $middleware
+     */
+    public function __construct(CleanArchitectureMiddleware $middleware)
+    {
+        $this->middleware = $middleware;
+    }
+
     public function output(UserCreateResponse $outputData)
     {
         $viewModel = new UserCreateViewModel($outputData->getCreatedUserId(), $outputData->getUserName());
-        CleanArchitectureMiddleware::$view = view('user.create', compact('viewModel'));
+        $this->middleware->setData(view('user.create', compact('viewModel')));
     }
 }

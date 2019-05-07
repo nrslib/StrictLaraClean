@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Http\Middleware\CleanArchitectureMiddleware;
 use App\Http\Presenters\User\UserCreatePresenter;
 use App\Http\Presenters\User\UserGetListPresenter;
 use Illuminate\Support\ServiceProvider;
@@ -22,6 +23,8 @@ class AppServiceProvider extends ServiceProvider
 
         // Mock で実行したい場合はコメント外す
 //        $this->registerForMock();
+
+        $this->app->singleton(CleanArchitectureMiddleware::class);
     }
 
     /**
